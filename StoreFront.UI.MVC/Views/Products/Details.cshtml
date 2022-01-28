@@ -1,0 +1,147 @@
+﻿@model StoreFront.DATA.EF.Product
+
+@{
+    ViewBag.Title = "Product Details";
+}
+
+@Html.Partial("_BreadcrumbPartial")
+
+<div>
+
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            <img src="~/Content/img/product/@Model.Image" alt="@Model.ProductName" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePer.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PricePer.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.Description)
+        </dd>*@
+
+        @*<dt>
+            <label>Quantity: </label>
+        </dt>
+        <dd>
+            @using (Html.BeginForm("AddToCart", "Products", new { productID = Model.ProductID }, FormMethod.Post))
+            {
+                // Use a hiddenFor() to pass the ProductID
+                @Html.HiddenFor(x => x.ProductID)
+
+                @Html.TextBox("Qty", 1, new { @class = "form-control", @style = "max-width:75px; display:inline;" })
+                <input type="submit" value="Add to Cart" class="btn site-btn" name="qty" />
+            }
+        </dd>*@
+
+    </dl>
+</div>
+
+@* **********************************8 *@
+
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__item">
+                        <img class="product__details__pic__item--large product_border" src="~/Content/img/product/@Model.Image" alt="@Model.ProductName" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product__details__text">
+                    <h3>@Html.DisplayFor(model => model.ProductName)</h3>
+                    <div class="product__details__rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-o"></i>
+                        <span>(18 reviews)</span>
+                    </div>
+                    <div class="product__details__price">@Html.DisplayFor(model => model.UnitPrice)</div>
+                    <p>
+                        @Html.DisplayFor(model => model.ProductDesc)
+                    </p>
+                    <div class="product__details__quantity">
+                        <div class="quantity">
+
+
+                            @using (Html.BeginForm("AddToCart", "Products", new { productID = Model.ProductID }, FormMethod.Post))
+                            {
+                                <div class="pro-qty">
+                                    <input type="text" value="1" name="Qty">
+                                </div>
+                                @*@Html.TextBox("Qty", 1, new { @class = "pro-qty" })*@
+                                // Use a hiddenFor() to pass the ProductID
+                                @Html.HiddenFor(x => x.ProductID)
+                                <input type="submit" value="Add to Cart" class="btn primary-btn" name="qty" />
+                            }
+                            <p>
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
+                                @Html.ActionLink("Back to List", "Index")
+                            </p>
+                        </div>
+                        <ul>
+                            @*<li><b>Availability</b> <span>In Stock</span></li>*@
+                            @*<li><b>Shipping </b> <span>01 day shipping. <samp> Free pickup today</samp></span></li>*@
+                            <li>Available for next day shipping.</li>
+                            <li>Free in-store pickup today.</li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>

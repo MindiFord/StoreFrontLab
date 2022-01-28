@@ -1,2 +1,2 @@
-# StoreFrontLab
-E-Commerce Site
+# StoreFront
+E-commerce website

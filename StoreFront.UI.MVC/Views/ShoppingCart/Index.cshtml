@@ -1,0 +1,117 @@
+﻿@*model IEnumerable<StoreFront.DATA.EF.Product>*@
+@* Commented out the declaration to change the data type associated with the view to be Dictionary<int, CIVM> *@
+
+@model Dictionary<int, StoreFront.UI.MVC.Models.CartItemViewModel>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+
+    decimal? cartTotal = 0;
+    int totalCountOfItems = 0;
+
+}
+
+@*<h2>@ViewBag.Title</h2>*@
+
+@if (ViewBag.Message != null)
+{
+    <h3 style="text-align: center; color: #7fad39">@ViewBag.Message</h3>
+}
+else
+{
+
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shopping__product">Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+
+
+                                    <tr>
+                                        <td class="shopping__cart__item">
+                                            <img src="~/Content/img/product/t_@item.Value.Product.Image" alt="@item.Value.Product.ProductName" />
+                                            <h5>@item.Value.Product.ProductName</h5>
+                                        </td>
+                                        <td class="shopping__cart__price">
+                                            @Html.DisplayFor(modelItem => item.Value.Product.UnitPrice)
+                                        </td>
+
+                                        <td class="shopping__cart__quantity">
+                                            <div class="quantity">
+                                                <div class="pro-qty">
+                                                    @Html.Hidden("productID", item.Value.Product.ProductID)
+                                                    @Html.TextBox("qty", item.Value.Qty)
+                                                </div>
+                                            </div>
+                                            @{ totalCountOfItems += item.Value.Qty;}
+                                        </td>
+                                        <td class="shopping__cart__total">
+                                            @{
+                                                decimal? singleTotal = item.Value.Product.UnitPrice * item.Value.Qty;
+                                                cartTotal += singleTotal;
+                                            }
+
+                                            @string.Format($"{singleTotal:c}")
+                                        </td>
+                                        <td class="shopping__cart__item__close">
+                                            <span class="icon_close"></span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shopping__cart__btns">
+                        @Html.ActionLink("Back to Shopping", "Index", "Products", null, new { @class = "btn site-btn cart-btn" })
+                        <a href="@Url.Action("UpdateCart", "ShoppingCart")" class="btn site-btn cart-btn cart-btn-right">Update Cart</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <div class="shopping__discount">
+                            <h5>Discount Codes</h5>
+                            <form action="#">
+                                <input type="text" placeholder="Enter your coupon code" />
+                                <button type="submit" class="site-btn">Apply Coupon</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shopping__checkout">
+                        <h5>Cart Total</h5>
+                        <ul>
+                            <li>Subtotal <span>@String.Format($"{cartTotal:c}")</span></li>
+                            <li>Sales Tax (5%) <span>@String.Format($"{cartTotal*.05m:c}")</span></li>
+                            <li>Total <span>@String.Format($"{cartTotal+=(cartTotal*.05m):c}")</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+
+
